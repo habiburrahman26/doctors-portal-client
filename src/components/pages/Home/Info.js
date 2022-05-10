@@ -4,7 +4,7 @@ import phone from '../../../assets/icons/phone.svg';
 
 const Info = () => {
   return (
-    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 px-6 lg:px-20 pb-24 pt-10">
+    <section className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 px-6 lg:px-20 pb-24 pt-10">
       <div class="card card-compact md:card-side py-8 px-6 bg-secondary shadow-xl bg-gradient-to-r from-secondary to-primary text-white">
         <figure>
           <img src={clock} className="w-16 h-16" alt="" />
@@ -33,7 +33,7 @@ const Info = () => {
           <p>+929434343</p>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

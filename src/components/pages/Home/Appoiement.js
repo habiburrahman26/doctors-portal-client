@@ -3,7 +3,7 @@ import doctor from '../../../assets/images/doctor.png';
 
 const Appoiement = () => {
   return (
-    <div class="hero bg-accent bg-appointment mb-24">
+    <section class="hero bg-accent bg-appointment mb-24">
       <div class="hero-content flex-col lg:flex-row">
         <img
           src={doctor}
@@ -30,7 +30,7 @@ const Appoiement = () => {
           </button>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
