@@ -10,7 +10,7 @@ const Appoiement = () => {
           class="hidden md:flex max-w-xs lg:max-w-2xl rounded-lg mt-[-150px] -mb-4 flex-end"
           alt=""
         />
-        <div>
+        <div className='px-4'>
           <h1 className='font-bold uppercase text-secondary'>
             Appointment
           </h1>
