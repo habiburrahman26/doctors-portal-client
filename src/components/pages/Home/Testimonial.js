@@ -6,7 +6,7 @@ import people3 from '../../../assets/images/people3.png';
 
 const Testimonial = () => {
   return (
-    <div className=" px-2 lg:px-8 pb-24">
+    <div className=" px-2 lg:px-12 pb-24">
       <h3 className="font-bold uppercase text-secondary">Testimonial</h3>
       <p className="text-3xl">What Our Patients Says</p>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 px-2 lg:px-32 pt-16">
