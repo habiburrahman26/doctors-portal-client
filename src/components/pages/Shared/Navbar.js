@@ -1,26 +1,57 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
+  const location = useLocation();
   const menuItems = (
     <>
       <li>
-        <Link to="/home">Home</Link>
+        <NavLink
+          to={location.pathname === '/home' ? '/home' : '/'}
+          className={({ isActive }) => (isActive ? 'bg-accent text-white' : '')}
+        >
+          Home
+        </NavLink>
       </li>
       <li>
-        <Link to="/about">About</Link>
+        <NavLink
+          to="/about"
+          className={({ isActive }) => (isActive ? 'bg-accent text-white' : '')}
+        >
+          About
+        </NavLink>
       </li>
       <li>
-        <Link to="/appoinemnt">Appoinemnt</Link>
+        <NavLink
+          to="/appoinemnt"
+          className={({ isActive }) => (isActive ? 'bg-accent text-white' : '')}
+        >
+          Appoinemnt
+        </NavLink>
       </li>
       <li>
-        <Link to="/reviews">Reviews</Link>
+        <NavLink
+          to="/reviews"
+          className={({ isActive }) => (isActive ? 'bg-accent text-white' : '')}
+        >
+          Reviews
+        </NavLink>
       </li>
       <li>
-        <Link to="/contactus">Contact Us</Link>
+        <NavLink
+          to="/contactus"
+          className={({ isActive }) => (isActive ? 'bg-accent text-white' : '')}
+        >
+          Contact Us
+        </NavLink>
       </li>
       <li>
-        <Link to="/login">Login</Link>
+        <NavLink
+          to="/login"
+          className={({ isActive }) => (isActive ? 'bg-accent text-white' : '')}
+        >
+          Login
+        </NavLink>
       </li>
     </>
   );

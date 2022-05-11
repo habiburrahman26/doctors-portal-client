@@ -1,16 +1,25 @@
-import React from 'react';
-import Button from '../Shared/Button';
-
 const Services = (props) => {
-  console.log(props);
+  const { name, slots, setTreatment } = props;
+
   return (
     <div className="shadow-md py-8 rounded-lg text-center">
-      <h3 className="text-xl text-secondary font-semibold mb-1">
-        {props.name}
-      </h3>
-      <p>{props.slots[0]}</p>
-      <p className='mb-4'>10 space avaible</p>
-      <Button text="book appoinment" />
+      <h3 className="text-xl text-secondary font-semibold mb-1">{name}</h3>
+      <p>
+        {slots.length > 0 ? (
+          <span>{slots[0]}</span>
+        ) : (
+          <span style={{ color: 'red' }}>No slots avaible</span>
+        )}
+      </p>
+      <p className="mb-4">10 space avaible</p>
+      <label
+        for="booking-modal"
+        class="btn btn-primary bg-gradient-to-r from-secondary to-primary text-white font-bold modal-button"
+        disabled={slots.length === 0}
+        onClick={() => setTreatment(props)}
+      >
+        Book Appoinment
+      </label>
     </div>
   );
 };

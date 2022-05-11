@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import AppoinementBanner from './AppoinementBanner';
 import AvaibleAppoinment from './AvaibleAppoinment';
+import Footer from '../Shared/Footer';
 
 const AppoinmentPage = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -11,6 +12,7 @@ const AppoinmentPage = () => {
         setSelectedDate={setSelectedDate}
       />
       <AvaibleAppoinment date={selectedDate} />
+      <Footer />
     </div>
   );
 };
