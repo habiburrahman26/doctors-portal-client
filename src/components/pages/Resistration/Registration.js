@@ -1,25 +1,29 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
+  useCreateUserWithEmailAndPassword,
   useSignInWithGoogle,
-  useSignInWithEmailAndPassword,
+  useUpdateProfile,
 } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
 import { useForm } from 'react-hook-form';
 import LoadingSpinner from '../Shared/LoadingSpinner';
 
-const Login = () => {
+const Registration = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
   const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
-  const [signInWithEmailAndPassword, user, loading, error] =
-    useSignInWithEmailAndPassword(auth);
+  const [createUserWithEmailAndPassword, user, loading, error] =
+    useCreateUserWithEmailAndPassword(auth);
+  const [updateProfile, updating] = useUpdateProfile(auth);
 
-  if (loading || gLoading) {
-    return <LoadingSpinner/>;
+  const navigate = useNavigate();
+
+  if (loading || gLoading || updating) {
+    return <LoadingSpinner />;
   }
 
   let signInError;
@@ -30,20 +34,43 @@ const Login = () => {
   }
 
   if (gUser || user) {
-    console.log(user || gUser);
+    navigate('/appoinemnt')
   }
 
-  const onSubmit = (data) => {
-    signInWithEmailAndPassword(data.email, data.password);
+  const onSubmit = async (data) => {
+    await createUserWithEmailAndPassword(data.email, data.password);
+    await updateProfile({ displayName: data.name });
   };
 
   return (
-    <div className="shadow-lg max-w-md p-8 mx-auto mt-20">
-      <h1 className="text-3xl text-center mb-6">Login</h1>
+    <div className="shadow-lg max-w-md p-8 mx-auto mt-12">
+      <h1 className="text-3xl text-center mb-6">Registration</h1>
       <form
         className="flex flex-col items-center"
         onSubmit={handleSubmit(onSubmit)}
       >
+        <div className="form-control w-full max-w-sm">
+          <label className="label">
+            <span className="label-text">Name</span>
+          </label>
+          <input
+            className="input input-bordered w-full max-w-sm"
+            type="text"
+            {...register('name', {
+              required: {
+                value: true,
+                message: 'Name is Required',
+              },
+            })}
+          />
+          <label className="label -mb-4">
+            {errors.name?.type === 'required' && (
+              <span className="label-text-alt text-red-500">
+                {errors.name.message}
+              </span>
+            )}
+          </label>
+        </div>
         <div className="form-control w-full max-w-sm">
           <label className="label">
             <span className="label-text">Email</span>
@@ -51,7 +78,6 @@ const Login = () => {
           <input
             className="input input-bordered w-full max-w-sm"
             type="email"
-            placeholder="Email"
             {...register('email', {
               required: {
                 value: true,
@@ -82,7 +108,6 @@ const Login = () => {
           </label>
           <input
             type="password"
-            placeholder="Password"
             className="input input-bordered w-full max-w-sm"
             {...register('password', {
               required: {
@@ -117,9 +142,9 @@ const Login = () => {
         </button>
       </form>
       <p className="text-center mt-4 mb-4">
-        New to doctor portal?{' '}
-        <Link to="/register" className="text-secondary">
-          Create account
+        Already have an account?{' '}
+        <Link to="/login" className="text-secondary">
+          Login here
         </Link>
       </p>
       <div className="divider">OR</div>
@@ -135,4 +160,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Registration;

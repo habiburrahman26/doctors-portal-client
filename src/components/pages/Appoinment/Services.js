@@ -13,8 +13,8 @@ const Services = (props) => {
       </p>
       <p className="mb-4">10 space avaible</p>
       <label
-        for="booking-modal"
-        class="btn btn-primary bg-gradient-to-r from-secondary to-primary text-white font-bold modal-button"
+        htmlFor="booking-modal"
+        className="btn btn-primary bg-gradient-to-r from-secondary to-primary text-white font-bold modal-button"
         disabled={slots.length === 0}
         onClick={() => setTreatment(props)}
       >
