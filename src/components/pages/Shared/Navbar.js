@@ -65,7 +65,7 @@ const Navbar = () => {
       {user && (
         <li>
           <button
-            class="btn btn-outline btn-primary"
+            className="btn btn-outline btn-primary"
             onClick={() => signOut(auth)}
           >
             Sign Out

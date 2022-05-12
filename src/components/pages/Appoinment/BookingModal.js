@@ -1,7 +1,11 @@
 import { format, set } from 'date-fns';
 import React from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from '../../../firebase.init';
 
 const BookingModal = ({ _id, name, date, slots, setTreatment }) => {
+  const [user] = useAuthState(auth);
+
   const submitHandler = (e) => {
     e.preventDefault();
 
@@ -51,6 +55,9 @@ const BookingModal = ({ _id, name, date, slots, setTreatment }) => {
               name="name"
               placeholder="Full Name"
               className="input input-bordered w-full max-w-xs"
+              value={user?.displayName}
+              disabled
+              readOnly
             />
             <input
               type="number"
@@ -63,6 +70,9 @@ const BookingModal = ({ _id, name, date, slots, setTreatment }) => {
               name="email"
               placeholder="Email"
               className="input input-bordered w-full max-w-xs"
+              value={user?.email}
+              disabled
+              readOnly
             />
             <button className="btn bg-accent text-white mt-2 py-4 w-full max-w-xs">
               Submit

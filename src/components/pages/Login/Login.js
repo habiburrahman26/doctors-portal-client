@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
   useSignInWithGoogle,
   useSignInWithEmailAndPassword,
@@ -18,8 +18,19 @@ const Login = () => {
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
 
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  let from = location?.state?.from?.pathname;
+
+  useEffect(() => {
+    if (gUser || user) {
+      navigate(from, { replace: true });
+    }
+  }, [user, gUser, navigate, from]);
+
   if (loading || gLoading) {
-    return <LoadingSpinner/>;
+    return <LoadingSpinner />;
   }
 
   let signInError;
@@ -27,10 +38,6 @@ const Login = () => {
     signInError = (
       <p className="text-red-500">{error?.message || gError?.message}</p>
     );
-  }
-
-  if (gUser || user) {
-    console.log(user || gUser);
   }
 
   const onSubmit = (data) => {
