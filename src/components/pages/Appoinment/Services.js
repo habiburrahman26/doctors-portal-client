@@ -11,7 +11,7 @@ const Services = (props) => {
           <span style={{ color: 'red' }}>No slots avaible</span>
         )}
       </p>
-      <p className="mb-4">10 space avaible</p>
+      <p className="mb-4">{slots.length + 1} space avaible</p>
       <label
         htmlFor="booking-modal"
         className="btn btn-primary bg-gradient-to-r from-secondary to-primary text-white font-bold modal-button"
