@@ -16,7 +16,9 @@ const Services = (props) => {
         htmlFor="booking-modal"
         className="btn btn-primary bg-gradient-to-r from-secondary to-primary text-white font-bold modal-button"
         disabled={slots.length === 0}
-        onClick={() => setTreatment(props)}
+        onClick={() => {
+          setTreatment(props);
+        }}
       >
         Book Appoinment
       </label>

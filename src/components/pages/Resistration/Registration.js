@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   useCreateUserWithEmailAndPassword,
@@ -8,6 +8,7 @@ import {
 import auth from '../../../firebase.init';
 import { useForm } from 'react-hook-form';
 import LoadingSpinner from '../Shared/LoadingSpinner';
+import useToken from '../../../hooks/useToken';
 
 const Registration = () => {
   const {
@@ -20,7 +21,14 @@ const Registration = () => {
     useCreateUserWithEmailAndPassword(auth);
   const [updateProfile, updating] = useUpdateProfile(auth);
 
+  const [token] = useToken(user || gUser);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (token) {
+      navigate('/appoinemnt', { replace: true });
+    }
+  }, [token, navigate]);
 
   if (loading || gLoading || updating) {
     return <LoadingSpinner />;
@@ -31,10 +39,6 @@ const Registration = () => {
     signInError = (
       <p className="text-red-500">{error?.message || gError?.message}</p>
     );
-  }
-
-  if (gUser || user) {
-    navigate('/appoinemnt')
   }
 
   const onSubmit = async (data) => {

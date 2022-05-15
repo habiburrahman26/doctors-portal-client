@@ -64,6 +64,18 @@ const Navbar = () => {
       )}
       {user && (
         <li>
+          <NavLink
+            to="/dashboard"
+            className={({ isActive }) =>
+              isActive ? 'bg-accent text-white' : ''
+            }
+          >
+            Dashboard
+          </NavLink>
+        </li>
+      )}
+      {user && (
+        <li>
           <button
             className="btn btn-outline btn-primary"
             onClick={() => signOut(auth)}
@@ -103,8 +115,15 @@ const Navbar = () => {
           </ul>
         </div>
         <p className="btn btn-ghost normal-case text-xl">Doctors portal</p>
+
+        <label
+          for="my-drawer-2"
+          class="btn btn-primary drawer-button lg:hidden"
+        >
+          sidebar
+        </label>
       </div>
-      <div className="navbar-end hidden lg:flex">
+      <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal p-0">{menuItems}</ul>
       </div>
     </div>

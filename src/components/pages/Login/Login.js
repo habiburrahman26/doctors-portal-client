@@ -7,6 +7,7 @@ import {
 import auth from '../../../firebase.init';
 import { useForm } from 'react-hook-form';
 import LoadingSpinner from '../Shared/LoadingSpinner';
+import useToken from '../../../hooks/useToken';
 
 const Login = () => {
   const {
@@ -18,16 +19,18 @@ const Login = () => {
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
 
+  const [token] = useToken(user || gUser);
+
   const location = useLocation();
   const navigate = useNavigate();
 
-  let from = location?.state?.from?.pathname;
+  let from = location?.state?.from?.pathname || '/';
 
   useEffect(() => {
-    if (gUser || user) {
+    if (token) {
       navigate(from, { replace: true });
     }
-  }, [user, gUser, navigate, from]);
+  }, [token, navigate, from]);
 
   if (loading || gLoading) {
     return <LoadingSpinner />;
