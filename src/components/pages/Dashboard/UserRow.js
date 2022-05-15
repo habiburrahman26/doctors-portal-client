@@ -1,3 +1,5 @@
+import { toast } from 'react-toastify';
+
 const UserRow = ({ rowNumber, email, refetch, role }) => {
   const makeAdmin = () => {
     fetch(`http://localhost:5000/user/admin/${email}`, {
@@ -6,13 +8,20 @@ const UserRow = ({ rowNumber, email, refetch, role }) => {
         authorization: `Bearer ${localStorage.getItem('accessToken')}`,
       },
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.status === 403) {
+          throw new Error(`${res.statusText} ${res.status}`);
+        }
+        return res.json();
+      })
       .then((data) => {
         refetch();
+        toast.success('Admin created successfully');
+      })
+      .catch((err) => {
+        toast.error(err.message);
       });
   };
-
-  console.log(role);
 
   return (
     <tr>
@@ -23,9 +32,7 @@ const UserRow = ({ rowNumber, email, refetch, role }) => {
           make admin
         </button>
       )}
-      {role === 'admin' && (
-        <div class="badge badge-primary">Admin</div>
-      )}
+      {role === 'admin' && <div class="badge badge-primary">Admin</div>}
       <button class="btn btn-xs">X</button>
     </tr>
   );
