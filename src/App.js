@@ -13,6 +13,7 @@ import Dashboard from './components/pages/Dashboard/Dashboard';
 import MyAppoinment from './components/pages/Dashboard/MyAppoinment';
 import Review from './components/pages/Dashboard/Review';
 import { QueryClientProvider, QueryClient } from 'react-query';
+import Users from './components/pages/Dashboard/Users';
 
 const client = new QueryClient();
 
@@ -33,9 +34,17 @@ function App() {
               </RequireAuth>
             }
           />
-          <Route path="dashboard" element={<Dashboard />}>
+          <Route
+            path="dashboard"
+            element={
+              <RequireAuth>
+                <Dashboard />
+              </RequireAuth>
+            }
+          >
             <Route index element={<MyAppoinment />} />
             <Route path="review" element={<Review />} />
+            <Route path="users" element={<Users />} />
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Registration />} />

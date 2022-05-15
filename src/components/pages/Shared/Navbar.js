@@ -8,6 +8,11 @@ const Navbar = () => {
   const location = useLocation();
   const [user] = useAuthState(auth);
 
+  const logout = () => {
+    localStorage.removeItem('accessToken');
+    signOut(auth);
+  };
+
   const menuItems = (
     <>
       <li>
@@ -76,10 +81,7 @@ const Navbar = () => {
       )}
       {user && (
         <li>
-          <button
-            className="btn btn-outline btn-primary"
-            onClick={() => signOut(auth)}
-          >
+          <button className="btn btn-outline btn-primary" onClick={logout}>
             Sign Out
           </button>
         </li>
