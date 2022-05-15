@@ -12,30 +12,35 @@ import 'react-toastify/dist/ReactToastify.css';
 import Dashboard from './components/pages/Dashboard/Dashboard';
 import MyAppoinment from './components/pages/Dashboard/MyAppoinment';
 import Review from './components/pages/Dashboard/Review';
+import { QueryClientProvider, QueryClient } from 'react-query';
+
+const client = new QueryClient();
 
 function App() {
   return (
     <div>
       <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route
-          path="/appoinemnt"
-          element={
-            <RequireAuth>
-              <AppoinmentPage />
-            </RequireAuth>
-          }
-        />
-        <Route path="dashboard" element={<Dashboard />}>
-          <Route path="myappoinment" element={<MyAppoinment />} />
-          <Route path="review" element={<Review />} />
-        </Route>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Registration />} />
-      </Routes>
+      <QueryClientProvider client={client}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route
+            path="/appoinemnt"
+            element={
+              <RequireAuth>
+                <AppoinmentPage />
+              </RequireAuth>
+            }
+          />
+          <Route path="dashboard" element={<Dashboard />}>
+            <Route index element={<MyAppoinment />} />
+            <Route path="review" element={<Review />} />
+          </Route>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Registration />} />
+        </Routes>
+      </QueryClientProvider>
       <ToastContainer />
     </div>
   );
