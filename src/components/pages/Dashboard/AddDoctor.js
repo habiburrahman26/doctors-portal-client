@@ -9,7 +9,7 @@ const AddDoctor = () => {
     register,
     handleSubmit,
     formState: { errors },
-    reset
+    reset,
   } = useForm();
 
   const image_api_key = '15bc02e119ec92fb90e6ae29f375f2a3';
@@ -45,13 +45,17 @@ const AddDoctor = () => {
 
           //send to your request mongodb
           axios
-            .post('http://localhost:5000/doctor', doctor)
+            .post('http://localhost:5000/doctor', doctor, {
+              headers: {
+                authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+              },
+            })
             .then(({ data }) => {
               if (data.insertedId) {
                 toast.success('Doctor added successfully');
-                reset()
-              }else{
-                toast.error('Failed to add doctor')
+                reset();
+              } else {
+                toast.error('Failed to add doctor');
               }
             });
         }

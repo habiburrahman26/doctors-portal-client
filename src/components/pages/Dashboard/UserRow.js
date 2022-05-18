@@ -9,7 +9,6 @@ const UserRow = ({ rowNumber, email, refetch, role }) => {
       },
     })
       .then((res) => {
-        console.log(res);
         if (res.status === 403) {
           throw new Error('Failed to make an admin');
         }

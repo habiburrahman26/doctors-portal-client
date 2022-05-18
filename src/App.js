@@ -17,6 +17,7 @@ import Users from './components/pages/Dashboard/Users';
 import RequireAdmin from './components/pages/Shared/RequireAdmin';
 import AddDoctor from './components/pages/Dashboard/AddDoctor';
 import { ReactQueryDevtools } from 'react-query/devtools';
+import ManageDoctors from './components/pages/Dashboard/ManageDoctors';
 
 const client = new QueryClient();
 
@@ -63,11 +64,19 @@ function App() {
                 </RequireAdmin>
               }
             />
+            <Route
+              path="manageDoctor"
+              element={
+                <RequireAdmin>
+                  <ManageDoctors />
+                </RequireAdmin>
+              }
+            />
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Registration />} />
         </Routes>
-        <ReactQueryDevtools initialIsOpen={false} position="bottom-right"/>
+        <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
       </QueryClientProvider>
       <ToastContainer />
     </div>
