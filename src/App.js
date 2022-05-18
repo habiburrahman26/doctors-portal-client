@@ -14,6 +14,9 @@ import MyAppoinment from './components/pages/Dashboard/MyAppoinment';
 import Review from './components/pages/Dashboard/Review';
 import { QueryClientProvider, QueryClient } from 'react-query';
 import Users from './components/pages/Dashboard/Users';
+import RequireAdmin from './components/pages/Shared/RequireAdmin';
+import AddDoctor from './components/pages/Dashboard/AddDoctor';
+import { ReactQueryDevtools } from 'react-query/devtools';
 
 const client = new QueryClient();
 
@@ -44,11 +47,27 @@ function App() {
           >
             <Route index element={<MyAppoinment />} />
             <Route path="review" element={<Review />} />
-            <Route path="users" element={<Users />} />
+            <Route
+              path="users"
+              element={
+                <RequireAdmin>
+                  <Users />
+                </RequireAdmin>
+              }
+            />
+            <Route
+              path="addDoctor"
+              element={
+                <RequireAdmin>
+                  <AddDoctor />
+                </RequireAdmin>
+              }
+            />
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Registration />} />
         </Routes>
+        <ReactQueryDevtools initialIsOpen={false} position="bottom-right"/>
       </QueryClientProvider>
       <ToastContainer />
     </div>

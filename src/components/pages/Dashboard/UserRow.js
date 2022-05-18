@@ -9,8 +9,9 @@ const UserRow = ({ rowNumber, email, refetch, role }) => {
       },
     })
       .then((res) => {
+        console.log(res);
         if (res.status === 403) {
-          throw new Error(`${res.statusText} ${res.status}`);
+          throw new Error('Failed to make an admin');
         }
         return res.json();
       })
@@ -27,13 +28,15 @@ const UserRow = ({ rowNumber, email, refetch, role }) => {
     <tr>
       <td>{rowNumber}</td>
       <td>{email}</td>
-      {role !== 'admin' && (
-        <button class="btn btn-xs mr-2" onClick={makeAdmin}>
-          make admin
-        </button>
-      )}
-      {role === 'admin' && <div class="badge badge-primary">Admin</div>}
-      <button class="btn btn-xs">X</button>
+      <td>
+        {role !== 'admin' && (
+          <button className="btn btn-xs mr-2" onClick={makeAdmin}>
+            make admin
+          </button>
+        )}
+        {role === 'admin' && <div className="badge badge-primary">Admin</div>}
+        <button className="btn btn-xs">X</button>
+      </td>
     </tr>
   );
 };
