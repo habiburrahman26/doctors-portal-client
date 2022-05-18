@@ -1,6 +1,23 @@
+import axios from 'axios';
 import React from 'react';
+import { toast } from 'react-toastify';
 
-const DoctorRow = ({ sl, name, specialty, img }) => {
+const DoctorRow = ({ sl, _id, name, specialty, img, refetch }) => {
+  const deleteHandler = (id) => {
+    axios
+      .delete(`http://localhost:5000/doctor/${id}`, {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      })
+      .then(({ data }) => {
+        if (data.deletedCount) {
+          toast.success(`$Doctor ${name} deleted successfully`);
+          refetch()
+        }
+      });
+  };
+
   return (
     <tr>
       <th>{sl}</th>
@@ -14,7 +31,12 @@ const DoctorRow = ({ sl, name, specialty, img }) => {
       <td>{name}</td>
       <td>{specialty}</td>
       <td>
-        <button className="btn btn-xs btn-error">Delete</button>
+        <button
+          className="btn btn-xs btn-error"
+          onClick={() => deleteHandler(_id)}
+        >
+          Delete
+        </button>
       </td>
     </tr>
   );

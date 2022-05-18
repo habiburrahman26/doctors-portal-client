@@ -5,7 +5,7 @@ import LoadingSpinner from '../Shared/LoadingSpinner';
 import DoctorRow from './DoctorRow';
 
 const ManageDoctors = () => {
-  const { data, isLoading } = useQuery('doctors', () =>
+  const { data, isLoading, refetch } = useQuery('doctors', () =>
     axios.get('http://localhost:5000/doctor', {
       headers: {
         authorization: `Bearer ${localStorage.getItem('accessToken')}`,
@@ -31,7 +31,12 @@ const ManageDoctors = () => {
         </thead>
         <tbody>
           {data?.data?.map((doctor, index) => (
-            <DoctorRow key={doctor._id} sl={index + 1} {...doctor} />
+            <DoctorRow
+              key={doctor._id}
+              sl={index + 1}
+              {...doctor}
+              refetch={refetch}
+            />
           ))}
         </tbody>
       </table>
